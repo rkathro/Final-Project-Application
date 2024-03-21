@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <View
+        android:id="@+id/grayBox"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@color/gray" />
+
+    <ImageView
+        android:id="@+id/charlotteImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/history_7611" />
+
+    <TextView
+        android:id="@+id/grayBoxText"
+        android:layout_width="wrap_content"
+        android:layout_height="550dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="90dp"
+        android:text="@string/gray_box_testing"
+        android:visibility="visible"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        />
+
+</RelativeLayout>

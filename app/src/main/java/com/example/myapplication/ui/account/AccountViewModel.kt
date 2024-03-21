@@ -10,4 +10,5 @@ class AccountViewModel : ViewModel() {
         value = "This is account Fragment"
     }
     val text: LiveData<String> = _text
+
 }
