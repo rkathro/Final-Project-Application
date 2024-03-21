@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class NotificationsViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is the notifications page"
+        value = "This is a test change for the notifications page"
     }
     val text: LiveData<String> = _text
 }
