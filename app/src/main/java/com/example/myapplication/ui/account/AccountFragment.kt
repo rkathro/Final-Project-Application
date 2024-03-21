@@ -29,7 +29,7 @@ class AccountFragment : Fragment() {
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
+        val textView: TextView = binding.textAccount
         accountViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
