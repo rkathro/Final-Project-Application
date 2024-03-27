@@ -7,17 +7,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.FragmentAccountBinding
 import com.example.myapplication.databinding.GrayBoxBinding
+import AccountAdapter
+import com.example.myapplication.R
 
 
 class AccountFragment : Fragment() {
+    data class CompanyData(val logoDrawableId: Int, val companyName: String) {
+
+    }
+
     private var _binding: FragmentAccountBinding? = null
     private var _grayBoxBinding: GrayBoxBinding? = null
-
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: AccountAdapter
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -29,16 +37,20 @@ class AccountFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val accountViewModel =
-            ViewModelProvider(this).get(AccountViewModel::class.java)
-
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        recyclerView = root.findViewById(R.id.accountRecycler)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        _grayBoxBinding = GrayBoxBinding.inflate(inflater,container,false)
-        val grayBoxRoot = _grayBoxBinding!!.root
-        (root as ViewGroup).addView(grayBoxRoot)
-        val grayBoxTextView = _grayBoxBinding!!
+        // Sample data for testing
+        val dataList = listOf(
+            CompanyData(R.drawable.charlotte_49ers_1, "Charlotte"),
+            CompanyData(R.drawable.wells_fargo, "Wells Fargo"),
+            CompanyData(R.drawable.facebook_3_2, "Facebook")
+        )
+        adapter = AccountAdapter(dataList)
+        recyclerView.adapter = adapter
+
         return root
     }
 
