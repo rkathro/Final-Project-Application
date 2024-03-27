@@ -5,4 +5,6 @@
     <string name="title_settings">Settings</string>
     <string name="testing">I Hate XML</string>
     <string name="gray_box_testing">Charlotte</string>
+    <string name="company_name">Blank Company Name</string>
+    <string name="company_logo_description">each companys individual logo</string>
 </resources>

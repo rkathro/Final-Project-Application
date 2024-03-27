@@ -1,33 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
-
-    <View
-        android:id="@+id/grayBox"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="@color/gray" />
+    android:background="#494C4E">
 
     <ImageView
-        android:id="@+id/charlotteImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/history_7611" />
+        android:id="@+id/companyLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/company_logo_description"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.108"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/user_3296" />
 
     <TextView
-        android:id="@+id/grayBoxText"
-        android:layout_width="wrap_content"
-        android:layout_height="550dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="90dp"
-        android:text="@string/gray_box_testing"
+        android:id="@+id/companyName"
+        android:layout_width="135dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="2dp"
+        android:autoText="false"
+        android:text="@string/company_name"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
         android:visibility="visible"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintStart_toEndOf="@+id/companyLogo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.055" />
 
-</RelativeLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:background="#494C4E"
+        app:cardBackgroundColor="#494C4E"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.24" />
+
+    <ImageButton
+        android:id="@+id/menuButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:width="50dp"
+        android:height="50dp"
+        android:adjustViewBounds="true"
+        android:background="#494C4E"
+        android:clickable="true"
+        android:onClick="@string/app_name"
+        android:scaleType="centerCrop"
+        android:viewportWidth="50.0"
+        android:viewportHeight="50.0"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.126"
+        app:srcCompat="@drawable/three_dots_menu_svgrepo_com"
+        app:tint="#FFFFFF"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
