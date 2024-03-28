@@ -62,7 +62,7 @@
             android:adjustViewBounds="true"
             android:background="#494C4E"
             android:clickable="true"
-            android:onClick="@string/app_name"
+            android:onClick="MyApplication"
             android:scaleType="centerCrop"
             android:viewportWidth="50.0"
             android:viewportHeight="50.0"
