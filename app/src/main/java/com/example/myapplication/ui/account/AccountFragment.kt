@@ -27,8 +27,6 @@ class AccountFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AccountAdapter
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     @SuppressLint("SetTextI18n")

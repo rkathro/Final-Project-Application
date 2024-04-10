@@ -4,39 +4,42 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.myapplication.databinding.FragmentHistoryBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.R
 
 class HistoryFragment : Fragment() {
+    data class HistoryItem(val companyName: String, val time: String, val logoResource: Int) {
 
-    private var _binding: FragmentHistoryBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
+    }
+    private lateinit var adapter: HistoryAdapter
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View {
-        val dashboardViewModel =
-                ViewModelProvider(this).get(HistoryViewModel::class.java)
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val root = inflater.inflate(R.layout.fragment_history, container, false)
 
-        _binding = FragmentHistoryBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        val recyclerView = root.findViewById<RecyclerView>(R.id.historyRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val dataList = listOf(
+            HistoryItem("Charlotte", "10:00 AM", R.drawable.charlotte_49ers_1),
+            HistoryItem("Wells Fargo", "11:30 AM", R.drawable.wells_fargo),
+            HistoryItem("Facebook", "1:45 PM", R.drawable.facebook_3_2)
+        )
+        adapter = HistoryAdapter(dataList.toMutableList())
+        recyclerView.adapter = adapter
 
-        val textView: TextView = binding.textHistory
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
         return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun createDummyData(): List<HistoryItem> {
+        // Replace this with your actual data retrieval logic
+        return listOf(
+            HistoryItem("Charlotte", "10:00 AM", R.drawable.charlotte_49ers_1),
+            HistoryItem("Wells Fargo", "11:30 AM", R.drawable.wells_fargo),
+            HistoryItem("Facebook", "1:45 PM", R.drawable.facebook_3_2)
+        )
     }
 }
