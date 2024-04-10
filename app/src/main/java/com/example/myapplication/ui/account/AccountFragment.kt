@@ -48,7 +48,7 @@ class AccountFragment : Fragment() {
             CompanyData(R.drawable.wells_fargo, "Wells Fargo"),
             CompanyData(R.drawable.facebook_3_2, "Facebook")
         )
-        adapter = AccountAdapter(dataList)
+        adapter = AccountAdapter(dataList.toMutableList())
         recyclerView.adapter = adapter
 
         return root
