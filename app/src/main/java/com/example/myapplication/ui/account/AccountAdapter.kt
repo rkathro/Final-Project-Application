@@ -1,3 +1,5 @@
+package com.example.myapplication.ui.account
+
 import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View

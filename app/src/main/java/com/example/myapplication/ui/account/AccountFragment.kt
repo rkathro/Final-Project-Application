@@ -13,7 +13,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.FragmentAccountBinding
 import com.example.myapplication.databinding.GrayBoxBinding
-import AccountAdapter
 import com.example.myapplication.R
 
 
