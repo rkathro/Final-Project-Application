@@ -21,7 +21,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/accountRecycler"
         android:layout_width="409dp"
-        android:layout_height="729dp"
+        android:layout_height="653dp"
         android:layout_marginTop="76dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -41,8 +41,6 @@ class MainActivity : AppCompatActivity() {
         if (isFirstLogin()) {
             navigateToAccountSetup()
         }*/
-
-
     }
 
     private fun isFirstLogin(): Boolean {

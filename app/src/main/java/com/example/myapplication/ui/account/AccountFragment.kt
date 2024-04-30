@@ -55,7 +55,6 @@ class AccountFragment : Fragment() {
             CompanyData(R.drawable.charlotte_49ers_1, "Charlotte", "fortyniners"),
             CompanyData(R.drawable.wells_fargo, "Wells Fargo", "2013"),
             CompanyData(R.drawable.facebook_3_2, "Facebook", "zuckerberg")
-
         )
 
         adapter = AccountAdapter(dataList)
