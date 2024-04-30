@@ -32,6 +32,15 @@ class SettingsFragment : Fragment() {
         binding.btnChangePassword.setOnClickListener {
             showChangePasswordDialog()
         }
+        binding.btnChangeEmail.setOnClickListener {
+            showChangeEmailDialog()
+        }
+        binding.btnChangePhoneNumber.setOnClickListener {
+            showChangePhoneNumberDialog()
+        }
+        binding.btnRetrainFacialRecognition.setOnClickListener {
+            showRetrainFacialRecognitionDialog()
+        }
 
         return root
     }
@@ -58,7 +67,12 @@ class SettingsFragment : Fragment() {
             val password = editTextPassword.text.toString()
             val newUsername = editTextNewUsername.text.toString()
 
-
+            if (validateUsernameChange(email, password, newUsername)) {
+                //password is correct change the vlaue stored in UserDataViewModel
+                Toast.makeText(requireContext(), "Username changed successfully", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Invalid email or password", Toast.LENGTH_SHORT).show()
+            }
             alertDialog.dismiss()
         }
     }
@@ -83,17 +97,119 @@ class SettingsFragment : Fragment() {
                 //password is correct change the vlaue stored in UserDataViewModel
                 Toast.makeText(requireContext(), "Password changed successfully", Toast.LENGTH_SHORT).show()
             } else {
-                // Passwords are not valid, show error message
                 Toast.makeText(requireContext(), "Passwords do not match or are invalid", Toast.LENGTH_SHORT).show()
             }
             alertDialog.dismiss()
         }
     }
-    private fun validatePasswords(currentPassword: String, newPassword: String, confirmNewPassword: String): Boolean {
+    private fun showChangeEmailDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.change_email_dialog, null)
+        val editTextCurrentEmail = dialogView.findViewById<EditText>(R.id.editTextCurrentEmail)
+        val editTextPassword = dialogView.findViewById<EditText>(R.id.editTextPassword)
+        val editTextNewEmail = dialogView.findViewById<EditText>(R.id.editTextNewEmail)
+        val btnSave = dialogView.findViewById<Button>(R.id.btnSave)
+
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setView(dialogView)
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+
+        btnSave.setOnClickListener {
+            val currentEmail = editTextCurrentEmail.text.toString()
+            val password = editTextPassword.text.toString()
+            val newEmail = editTextNewEmail.text.toString()
+
+            if (validateEmailChange(currentEmail, password, newEmail)) {
+                // Email change logic goes here
+                Toast.makeText(requireContext(), "Email changed successfully", Toast.LENGTH_SHORT).show()
+            } else {
+                // Show error message
+                Toast.makeText(requireContext(), "Invalid email or password", Toast.LENGTH_SHORT).show()
+            }
+            alertDialog.dismiss()
+        }
+    }
+    private fun showChangePhoneNumberDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.change_phone_number_dialog, null)
+        val editTextCurrentPhoneNumber = dialogView.findViewById<EditText>(R.id.editTextCurrentPhoneNumber)
+        val editTextPassword = dialogView.findViewById<EditText>(R.id.editTextPassword)
+        val editTextNewPhoneNumber = dialogView.findViewById<EditText>(R.id.editTextNewPhoneNumber)
+        val btnSave = dialogView.findViewById<Button>(R.id.btnSave)
+
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setView(dialogView)
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+
+        btnSave.setOnClickListener {
+            val currentPhoneNumber = editTextCurrentPhoneNumber.text.toString()
+            val password = editTextPassword.text.toString()
+            val newPhoneNumber = editTextNewPhoneNumber.text.toString()
+
+            if (validatePhoneNumberChange(currentPhoneNumber, password, newPhoneNumber)) {
+                // Phone number change logic goes here
+                Toast.makeText(requireContext(), "Phone number changed successfully", Toast.LENGTH_SHORT).show()
+            } else {
+                // Show error message
+                Toast.makeText(requireContext(), "Invalid phone number or password", Toast.LENGTH_SHORT).show()
+            }
+            alertDialog.dismiss()
+        }
+    }
+    private fun showRetrainFacialRecognitionDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.change_facial_rec_dialog, null)
+        val editTextPassword = dialogView.findViewById<EditText>(R.id.editTextPassword)
+        val btnSave = dialogView.findViewById<Button>(R.id.btnSave)
+
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setView(dialogView)
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+
+        btnSave.setOnClickListener {
+            val password = editTextPassword.text.toString()
+
+            //if true print retraining facial rec and call however we decide to retrain
+            if (validatePasswordForFacialRecognition(password)) {
+                Toast.makeText(requireContext(), "Retraining facial recognition...", Toast.LENGTH_SHORT).show()
+                //call retraining function here
+            } else {
+                Toast.makeText(requireContext(), "Incorrect password", Toast.LENGTH_SHORT).show()
+            }
+            alertDialog.dismiss()
+        }
+    }
+
+    private fun validateUsernameChange(email: String, password: String, newUsername: String): Boolean {
         //change one currentPassword to the password stored in UserDataViewModel
-        if(currentPassword == currentPassword)
-            return newPassword == confirmNewPassword && newPassword.isNotEmpty() && currentPassword.isNotEmpty()
+        if(password == password && email == email && newUsername.isNotEmpty())
+            return true
         else
             return false
+    }
+    private fun validatePasswords(currentPassword: String, newPassword: String, confirmNewPassword: String): Boolean {
+        //change one currentPassword to the password stored in UserDataViewModel
+        if(currentPassword == currentPassword && newPassword == confirmNewPassword && newPassword.isNotEmpty())
+            return true
+        else
+            return false
+    }
+    private fun validateEmailChange(currentEmail: String, password: String, newEmail: String): Boolean {
+        //change one password and current email to the password and email stored in UserDataViewModel
+        if(password == password && currentEmail == currentEmail && newEmail.isNotEmpty())
+            return true
+        else
+            return false
+    }
+    private fun validatePhoneNumberChange(currentPhoneNumber: String, password: String, newPhoneNumber: String): Boolean {
+        //change one password and current email to the password and email stored in UserDataViewModel
+        if(password == password && currentPhoneNumber == currentPhoneNumber && newPhoneNumber.isNotEmpty())
+            return true
+        else
+            return false
+    }
+    private fun validatePasswordForFacialRecognition(password: String): Boolean {
+        //replace password with password from db
+        return password == password
     }
 }
