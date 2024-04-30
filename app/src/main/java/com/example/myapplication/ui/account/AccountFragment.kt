@@ -89,7 +89,13 @@ class AccountFragment : Fragment() {
                 for (i in companyListPasswords){
                     val companyPass = i.companyPassword
                     if(companyPass == password){
-                        dataList.add(i)
+                        if(dataList.contains(i)){
+                            Toast.makeText(requireContext(), "Account already exists", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                        else {
+                            dataList.add(i)
+                        }
                     }
                 }
                 adapter = AccountAdapter(dataList)
@@ -104,15 +110,8 @@ class AccountFragment : Fragment() {
         //check if password matches the organizations password
         for (i in companyListPasswords){
             val companyPass = i.companyPassword
-            for(x in dataList) {
-                val userPass = x.companyPassword
-                if (companyPass == userPass) {
-                    Toast.makeText(requireContext(), "Account already exists", Toast.LENGTH_SHORT)
-                        .show()
-                    return false
-                } else if (companyPass == password) {
-                    return true
-                }
+            if (companyPass == password) {
+                return true
             }
         }
         return false
