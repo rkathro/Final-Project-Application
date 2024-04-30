@@ -11,6 +11,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.myapplication.databinding.ActivityMainBinding
+import com.example.myapplication.ui.setup.AccountSetupFragment
+import com.example.myapplication.ui.setup.UserDataViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,15 +30,18 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.navigation_account, R.id.navigation_history, R.id.navigation_settings))
+            R.id.navigation_account, R.id.navigation_history, R.id.navigation_settings, R.id.navigation_account_setup))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
         sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+
+        /*Resets the app to think every login is the users First login. Use for Demonstration purposes
         resetSharedPref()
         if (isFirstLogin()) {
             navigateToAccountSetup()
-        }
+        }*/
+
 
     }
 
@@ -45,9 +50,8 @@ class MainActivity : AppCompatActivity() {
     }
     private fun navigateToAccountSetup() {
         // Inflate AccountSetupFragment
-        supportFragmentManager.beginTransaction()
-            .add(R.id.container, AccountSetupFragment(navController))
-            .commit()
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        navController.navigate(R.id.navigation_account_setup)
     }
     private fun resetSharedPref() {
         val editor = sharedPreferences.edit()

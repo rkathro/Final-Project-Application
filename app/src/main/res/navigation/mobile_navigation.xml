@@ -10,6 +10,9 @@
         android:name="com.example.myapplication.ui.account.AccountFragment"
         android:label="@string/title_account"
         tools:layout="@layout/fragment_account" />
+    <action
+        android:id="@+id/action_account_setup_to_account"
+        app:destination="@id/navigation_account" />
 
     <fragment
         android:id="@+id/navigation_history"
@@ -22,4 +25,15 @@
         android:name="com.example.myapplication.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/navigation_account_setup"
+        android:name="com.example.myapplication.ui.setup.AccountSetupFragment"
+        android:label="Account Setup"
+        tools:layout="@layout/account_setup">
+
+        <argument
+            android:name="someVariable"
+            app:argType="string" />
+    </fragment>
 </navigation>
