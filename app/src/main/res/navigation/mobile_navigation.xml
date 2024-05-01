@@ -33,4 +33,9 @@
             android:name="someVariable"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_training"
+        android:name="com.example.myapplication.ui.setup.FacialTrainingFragment"
+        android:label="Facial Rec Training"
+        tools:layout="@layout/activity_training" />
 </navigation>

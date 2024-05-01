@@ -36,9 +36,9 @@ class MainActivity : AppCompatActivity() {
 
         sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
 
-        /*Resets the app to think every login is the users First login. Use for Demonstration purposes
-        Use wisely its a pain in the ass after I implemented all the checks
-        resetSharedPref()*/
+        //Resets the app to think every login is the users First login. Use for Demonstration purposes
+        //Use wisely its a pain in the ass after I implemented all the checks
+        resetSharedPref()
         if (isFirstLogin()) {
             navigateToAccountSetup()
         }
