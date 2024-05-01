@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    //id("com.android.application")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -50,7 +52,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
+    implementation("androidx.core:core-ktx:1.6.0")
+    implementation("com.google.firebase:firebase-messaging:23.0.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
     val camerax_version = "1.4.0-alpha05"
     implementation("androidx.camera:camera-core:$camerax_version")
     implementation("androidx.camera:camera-camera2:$camerax_version")
@@ -59,3 +63,12 @@ dependencies {
     implementation("androidx.camera:camera-view:${camerax_version}")
 
 }
+
+apply(plugin = "com.google.gms.google-services")
+
+afterEvaluate {
+    tasks.named("mergeDebugResources") {
+        dependsOn(tasks.named("processDebugGoogleServices"))
+    }
+}
+
