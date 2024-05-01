@@ -7,4 +7,6 @@
     <string name="gray_box_testing">Charlotte</string>
     <string name="company_name">Blank Company Name</string>
     <string name="company_logo_description">each companys individual logo</string>
+    <string name="channel_name">Standard Notifications</string>
+    <string name="channel_description">Push notifications for the app</string>
 </resources>
