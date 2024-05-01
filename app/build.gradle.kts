@@ -48,12 +48,12 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.androidx.library)
+//    implementation(libs.androidx.library)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("org.mongodb:mongodb-driver-sync:4.4.3")
-    implementation("com.android.support:multidex:1.0.3")
+//    implementation("org.mongodb:mongodb-driver-sync:4.4.3")
+//    implementation("com.android.support:multidex:1.0.3")
 
     val camerax_version = "1.4.0-alpha05"
     implementation("androidx.camera:camera-core:$camerax_version")

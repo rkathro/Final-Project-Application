@@ -20,6 +20,7 @@ import androidx.camera.core.CameraSelector
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.video.VideoCapture
+
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -64,7 +65,7 @@ class FacialTrainingFragment() : Fragment() {
             val preview = Preview.Builder().build()
             preview.setSurfaceProvider(binding.previewView.surfaceProvider)
 
-            val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
+            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
             try {
                 cameraProvider.unbindAll()
@@ -122,7 +123,6 @@ class FacialTrainingFragment() : Fragment() {
             }
             mediaRecorder = null
             isRecording = false
-
         } catch (e: Exception) {
             Log.e(TAG, "Error stopping recording: ${e.message}")
         }
