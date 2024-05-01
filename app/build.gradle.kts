@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("io.realm.kotlin") version "1.15.0"
 }
 
 android {
@@ -34,7 +35,6 @@ android {
         viewBinding = true
         dataBinding = true
     }
-
 }
 
 dependencies {
@@ -47,6 +47,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.library)
+    implementation("io.realm.kotlin:library-base:1.15.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -57,5 +59,10 @@ dependencies {
     implementation ("androidx.camera:camera-lifecycle:$camerax_version")
     implementation("androidx.camera:camera-video:${camerax_version}")
     implementation("androidx.camera:camera-view:${camerax_version}")
-
 }
+
+kotlin {
+    sourceSets["main"].kotlin.srcDirs("build/generated/ksp/main/kotlin")
+}
+
+apply(plugin = "io.realm.kotlin")
