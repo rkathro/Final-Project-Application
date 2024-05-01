@@ -122,6 +122,7 @@ class FacialTrainingFragment() : Fragment() {
             }
             mediaRecorder = null
             isRecording = false
+
         } catch (e: Exception) {
             Log.e(TAG, "Error stopping recording: ${e.message}")
         }
