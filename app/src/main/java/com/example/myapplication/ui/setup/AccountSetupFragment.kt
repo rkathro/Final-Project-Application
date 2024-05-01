@@ -49,14 +49,14 @@ class AccountSetupFragment() : Fragment() {
             // Update first login value
             saveFirstLoginStatus()
 
-            // check user data
+            /* check user data
             if(username.isNotEmpty()){
                 if(password == confirmPassword) {
                     if(isPasswordValid(password)) {
                         if (isEmailValid(email)) {
                             if (isPhoneNumberValid(phoneNumber)) {
                                 userDataViewModel.setUserData(username, password, email, phoneNumber)
-                                navController.navigate(R.id.navigation_account)
+                                navController.navigate(R.id.navigation_training)
                             } else {
                                 Toast.makeText(
                                     requireContext(),
@@ -79,8 +79,8 @@ class AccountSetupFragment() : Fragment() {
                 }
             }else{
                 Toast.makeText(requireContext(), "Please enter a username", Toast.LENGTH_SHORT).show()
-            }
-
+            }*/
+            navController.navigate(R.id.navigation_training)
         }
 
         return view
