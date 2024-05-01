@@ -83,6 +83,23 @@ class UserDataViewModel : ViewModel() {
         _userDataList.value?.remove(companyData)
         _userDataList.notifyObserver()
     }
+    fun getUserDataList(): MutableList<CompanyData>? {
+        return _userDataList.value
+    }
+
+    fun setUserCompanyDataList(companyDataList: MutableList<CompanyData>) {
+        _userDataList.value = companyDataList.toMutableList()
+        _userDataList.notifyObserver()
+    }
+
+    fun getCompanyDataList(): MutableList<CompanyData>? {
+        return _companyDataList.value
+    }
+
+    fun setCompanyDataList(companyDataList: MutableList<CompanyData>) {
+        _companyDataList.value = companyDataList.toMutableList()
+        _companyDataList.notifyObserver()
+    }
 
     private fun <T> MutableLiveData<T>.notifyObserver() {
         this.value = this.value

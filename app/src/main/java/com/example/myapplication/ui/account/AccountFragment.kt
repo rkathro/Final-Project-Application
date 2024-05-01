@@ -44,12 +44,10 @@ class AccountFragment : Fragment() {
         recyclerView = root.findViewById(R.id.accountRecycler)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         // Sample data for testing
-        userDataViewModel.companyDataList.observe(viewLifecycleOwner) { companyDataList ->
-            companyListPasswords = companyDataList.toList()
-        }
-        userDataViewModel.userDataList.observe(viewLifecycleOwner) { userDataList ->
-            dataList = userDataList.toMutableList()
-        }
+
+        companyListPasswords = userDataViewModel.getCompanyDataList()?.toList() ?: emptyList()
+        dataList = userDataViewModel.getUserDataList()!!
+
 
         adapter = AccountAdapter(dataList)
         recyclerView.adapter = adapter
