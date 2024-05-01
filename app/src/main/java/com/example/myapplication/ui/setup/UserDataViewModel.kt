@@ -4,28 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
+data class UserData(val username: String?, val password: String?, val email: String?, val phoneNumber: String?)
 class UserDataViewModel : ViewModel() {
 
-    private val _username = MutableLiveData<String>()
-    val username: LiveData<String> = _username
-
-    private val _password = MutableLiveData<String>()
-    val password: LiveData<String> = _password
-
-    private val _email = MutableLiveData<String>()
-    val email: LiveData<String> = _email
-
-    private val _phoneNumber = MutableLiveData<String>()
-    val phoneNumber: LiveData<String> = _phoneNumber
+    private val _userData = MutableLiveData<UserData>()
+    val userData: LiveData<UserData> = _userData
 
     fun setUserData(username: String, password: String, email: String, phoneNumber: String) {
-        _username.value = username
-        _password.value = password
-        _email.value = email
-        _phoneNumber.value = phoneNumber
+        _userData.value = UserData(username, password, email, phoneNumber)
     }
 
-    fun getUserData(): Triple<String?, String?, String?> {
-        return Triple(_username.value, _email.value, _phoneNumber.value)
+    fun getUserData(): UserData? {
+        return _userData.value
     }
 }

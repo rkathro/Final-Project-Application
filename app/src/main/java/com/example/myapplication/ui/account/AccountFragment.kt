@@ -14,17 +14,19 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.FragmentAccountBinding
 import com.example.myapplication.databinding.GrayBoxBinding
 import com.example.myapplication.R
+import com.example.myapplication.ui.setup.UserDataViewModel
 
 
 class AccountFragment : Fragment() {
     data class CompanyData(val logoDrawableId: Int, val companyName: String, val companyPassword: String) {
 
     }
-
+    private val userDataViewModel: UserDataViewModel by activityViewModels()
     private var _binding: FragmentAccountBinding? = null
     private var _grayBoxBinding: GrayBoxBinding? = null
     private lateinit var recyclerView: RecyclerView
@@ -43,7 +45,7 @@ class AccountFragment : Fragment() {
         val root: View = binding.root
         recyclerView = root.findViewById(R.id.accountRecycler)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
+        println(userDataViewModel.getUserData())
         // Sample data for testing
         companyListPasswords = listOf(
             CompanyData(R.drawable.charlotte_49ers_1, "Charlotte", "fortyniners"),

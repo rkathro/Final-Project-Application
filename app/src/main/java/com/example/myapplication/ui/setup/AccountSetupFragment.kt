@@ -13,12 +13,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import com.example.myapplication.R
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.example.myapplication.ui.account.AccountFragment
 
 
 class AccountSetupFragment() : Fragment() {
-
+    private val userDataViewModel: UserDataViewModel by activityViewModels()
     private lateinit var viewModel: UserDataViewModel
 
     override fun onCreateView(
@@ -49,12 +50,12 @@ class AccountSetupFragment() : Fragment() {
             saveFirstLoginStatus()
 
             // check user data
-            /*if(username.isNotEmpty()){
+            if(username.isNotEmpty()){
                 if(password == confirmPassword) {
                     if(isPasswordValid(password)) {
                         if (isEmailValid(email)) {
                             if (isPhoneNumberValid(phoneNumber)) {
-                                viewModel.setUserData(username, password, email, phoneNumber)
+                                userDataViewModel.setUserData(username, password, email, phoneNumber)
                                 navController.navigate(R.id.navigation_training)
                             } else {
                                 Toast.makeText(
@@ -78,9 +79,8 @@ class AccountSetupFragment() : Fragment() {
                 }
             }else{
                 Toast.makeText(requireContext(), "Please enter a username", Toast.LENGTH_SHORT).show()
-            }*/
-            viewModel.setUserData(username, password, email, phoneNumber)
-            navController.navigate(R.id.navigation_training)
+            }
+
         }
 
         return view

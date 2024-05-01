@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.activity.viewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -15,7 +16,7 @@ import com.example.myapplication.ui.setup.AccountSetupFragment
 import com.example.myapplication.ui.setup.UserDataViewModel
 
 class MainActivity : AppCompatActivity() {
-
+    private val userDataViewModel: UserDataViewModel by viewModels()
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
