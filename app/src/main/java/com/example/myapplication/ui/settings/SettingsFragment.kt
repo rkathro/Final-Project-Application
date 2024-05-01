@@ -84,7 +84,6 @@ class SettingsFragment : Fragment() {
         val dialogView = layoutInflater.inflate(R.layout.change_password_dialog, null)
         val editTextCurrentPassword = dialogView.findViewById<EditText>(R.id.editTextCurrentPassword)
         val editTextNewPassword = dialogView.findViewById<EditText>(R.id.editTextNewPassword)
-        editTextNewPassword.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
         val editTextConfirmNewPassword = dialogView.findViewById<EditText>(R.id.editTextConfirmPassword)
         val btnSave = dialogView.findViewById<Button>(R.id.btnSave)
 
