@@ -1,26 +1,27 @@
 package com.example.myapplication.ui.setup
 
 import android.Manifest
+import android.content.ContentValues.TAG
 import android.content.pm.PackageManager
-import android.hardware.camera2.CameraAccessException
-import android.media.MediaRecorder
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.ImageFormat
+import android.media.Image
+import android.media.ImageReader
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.util.Size
 import android.view.LayoutInflater
-import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
-import androidx.camera.core.AspectRatio
 import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.video.VideoCapture
-
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -29,6 +30,7 @@ import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityTrainingBinding
 import com.google.common.util.concurrent.ListenableFuture
 import java.io.File
+import java.nio.ByteBuffer
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -38,8 +40,7 @@ class FacialTrainingFragment() : Fragment() {
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var binding: ActivityTrainingBinding
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
-    private var isRecording = false
-    private var mediaRecorder: MediaRecorder? = null
+    private var capturedImage: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +60,7 @@ class FacialTrainingFragment() : Fragment() {
 
         cameraExecutor = Executors.newSingleThreadExecutor()
         cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+
         cameraProviderFuture.addListener({
             val cameraProvider = cameraProviderFuture.get()
 
@@ -75,67 +77,43 @@ class FacialTrainingFragment() : Fragment() {
             }
         }, ContextCompat.getMainExecutor(requireContext()))
 
+
         binding.btnCapture.setOnClickListener {
-            if (isRecording) {
-                stopRecording()
-            } else {
-                startRecording()
+            captureImage()
+        }
+    }
+
+    private fun captureImage() {
+        val imageCapture = ImageCapture.Builder().build()
+
+        imageCapture.takePicture(ContextCompat.getMainExecutor(requireContext()), object : ImageCapture.OnImageCapturedCallback() {
+            override fun onCaptureSuccess(image: ImageProxy) {
+                val buffer: ByteBuffer = image.planes[0].buffer
+                val bytes = ByteArray(buffer.remaining())
+                buffer.get(bytes)
+
+                capturedImage = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+
+                // Navigate to the account screen
+                val navController = requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
+                navController.navigate(R.id.navigation_account)
+
+                image.close()
             }
-            val navController = requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
-            navController.navigate(R.id.navigation_account)
-        }
-    }
 
-    companion object {
-        private const val TAG = "FacialTrainingFragment"
-    }
-    private fun startRecording() {
-        mediaRecorder = MediaRecorder()
-
-        val outputDir = requireContext().externalMediaDirs.firstOrNull()
-        val outputFile = File.createTempFile("video", ".mp4", outputDir)
-
-        mediaRecorder?.apply {
-            setVideoSource(MediaRecorder.VideoSource.SURFACE)
-            setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-            setVideoEncoder(MediaRecorder.VideoEncoder.H264)
-            setOutputFile(outputFile.absolutePath)
-            setVideoFrameRate(30)
-            setVideoSize(1280, 720)
-            prepare()
-            start()
-        }
-
-        isRecording = true
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            stopRecording()
-        }, 2000) // Stop recording after 2 seconds
-    }
-
-
-    private fun stopRecording() {
-        try {
-            mediaRecorder?.apply {
-                stop()
-                reset()
-                release()
+            override fun onError(exception: ImageCaptureException) {
+                Log.e(TAG, "Image capture failed: ${exception.message}")
             }
-            mediaRecorder = null
-            isRecording = false
-        } catch (e: Exception) {
-            Log.e(TAG, "Error stopping recording: ${e.message}")
-        }
+        })
     }
-
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CAMERA_PERMISSION) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, you can now capture the video
+                // Permission granted, you can now capture the image
             } else {
-                Toast.makeText(requireContext(), "Camera permission is required to capture video", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Camera permission is required to capture image", Toast.LENGTH_SHORT).show()
             }
         }
     }
