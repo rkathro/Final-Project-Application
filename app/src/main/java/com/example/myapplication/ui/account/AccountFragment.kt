@@ -45,7 +45,7 @@ class AccountFragment : Fragment() {
         val root: View = binding.root
         recyclerView = root.findViewById(R.id.accountRecycler)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        println(userDataViewModel.getUserData())
+        Toast.makeText(requireContext(), userDataViewModel.getUsername(), Toast.LENGTH_SHORT).show()
         // Sample data for testing
         companyListPasswords = listOf(
             CompanyData(R.drawable.charlotte_49ers_1, "Charlotte", "fortyniners"),
