@@ -189,7 +189,7 @@ class SettingsFragment : Fragment() {
     }
     private fun validatePasswords(currentPassword: String, newPassword: String, confirmNewPassword: String): Boolean {
         //change one currentPassword to the password stored in UserDataViewModel
-        if(currentPassword == currentPassword && newPassword == confirmNewPassword && newPassword.isNotEmpty())
+        if(currentPassword == currentPassword && newPassword == confirmNewPassword && isPasswordValid(newPassword))
             return true
         else
             return false
@@ -211,6 +211,11 @@ class SettingsFragment : Fragment() {
     private fun validatePasswordForFacialRecognition(password: String): Boolean {
         //replace password with password from db
         return password == password
+    }
+    fun isPasswordValid(password: String): Boolean {
+        val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$".toRegex()
+
+        return passwordPattern.matches(password)
     }
     private fun isPhoneNumberValid(phoneNumber: String): Boolean {
         /*var phonePattern = "^[0-9]{10}\$"
