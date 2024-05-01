@@ -56,7 +56,7 @@ class AccountSetupFragment() : Fragment() {
                         if (isEmailValid(email)) {
                             if (isPhoneNumberValid(phoneNumber)) {
                                 userDataViewModel.setUserData(username, password, email, phoneNumber)
-                                navController.navigate(R.id.navigation_training)
+                                navController.navigate(R.id.navigation_account)
                             } else {
                                 Toast.makeText(
                                     requireContext(),
