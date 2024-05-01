@@ -9,12 +9,13 @@ import android.widget.ImageButton
 import androidx.appcompat.widget.PopupMenu
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.ui.account.AccountFragment.CompanyData
 import com.example.myapplication.R // Make sure to import your R file
+import com.example.myapplication.ui.setup.CompanyData
+import com.example.myapplication.ui.setup.UserDataViewModel
 
 class AccountAdapter(private val dataList: MutableList<CompanyData>) : RecyclerView.Adapter<AccountViewHolder>() {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AccountViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.gray_box, parent, false)
         return AccountViewHolder(view,this)
@@ -23,9 +24,7 @@ class AccountAdapter(private val dataList: MutableList<CompanyData>) : RecyclerV
     override fun onBindViewHolder(holder: AccountViewHolder, position: Int) {
         val dataItem = dataList[position]
         holder.bind(dataItem)
-
     }
-
     override fun getItemCount(): Int {
         return dataList.size
     }

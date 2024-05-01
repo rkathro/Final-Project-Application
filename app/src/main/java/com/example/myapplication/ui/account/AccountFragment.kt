@@ -19,13 +19,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.FragmentAccountBinding
 import com.example.myapplication.databinding.GrayBoxBinding
 import com.example.myapplication.R
+import com.example.myapplication.ui.setup.CompanyData
 import com.example.myapplication.ui.setup.UserDataViewModel
 
 
 class AccountFragment : Fragment() {
-    data class CompanyData(val logoDrawableId: Int, val companyName: String, val companyPassword: String) {
-
-    }
     private val userDataViewModel: UserDataViewModel by activityViewModels()
     private var _binding: FragmentAccountBinding? = null
     private var _grayBoxBinding: GrayBoxBinding? = null
@@ -46,17 +44,12 @@ class AccountFragment : Fragment() {
         recyclerView = root.findViewById(R.id.accountRecycler)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         // Sample data for testing
-        companyListPasswords = listOf(
-            CompanyData(R.drawable.charlotte_49ers_1, "Charlotte", "fortyniners"),
-            CompanyData(R.drawable.wells_fargo, "Wells Fargo", "2013"),
-            CompanyData(R.drawable.facebook_3_2, "Facebook", "zuckerberg"),
-            CompanyData(R.drawable.gmail_svgrepo_com, "Gmail", "google")
-        )
-        dataList = mutableListOf(
-            CompanyData(R.drawable.charlotte_49ers_1, "Charlotte", "fortyniners"),
-            CompanyData(R.drawable.wells_fargo, "Wells Fargo", "2013"),
-            CompanyData(R.drawable.facebook_3_2, "Facebook", "zuckerberg")
-        )
+        userDataViewModel.companyDataList.observe(viewLifecycleOwner) { companyDataList ->
+            companyListPasswords = companyDataList.toList()
+        }
+        userDataViewModel.userDataList.observe(viewLifecycleOwner) { userDataList ->
+            dataList = userDataList.toMutableList()
+        }
 
         adapter = AccountAdapter(dataList)
         recyclerView.adapter = adapter
@@ -90,11 +83,11 @@ class AccountFragment : Fragment() {
                     val companyPass = i.companyPassword
                     if(companyPass == password){
                         if(dataList.contains(i)){
-                            //Toast.makeText(requireContext(), "Account already exists", Toast.LENGTH_SHORT).show()
-                            Toast.makeText(requireContext(), userDataViewModel.getUsername(), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "Account already exists", Toast.LENGTH_SHORT).show()
                         }
                         else {
                             dataList.add(i)
+                            userDataViewModel.addUserCompanyData(i)
                         }
                     }
                 }

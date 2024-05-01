@@ -4,12 +4,28 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-data class UserData(val username: String?, val password: String?, val email: String?, val phoneNumber: String?)
-data class CompanyData(val logoDrawableId: Int, val companyName: String, val companyPassword: String)
+data class UserData(
+    val username: String?,
+    val password: String?,
+    val email: String?,
+    val phoneNumber: String?
+)
+
+data class CompanyData(
+    val logoDrawableId: Int,
+    val companyName: String,
+    val companyPassword: String
+)
 class UserDataViewModel : ViewModel() {
 
     private val _userData = MutableLiveData<UserData>()
     val userData: LiveData<UserData> = _userData
+
+    private val _companyDataList = MutableLiveData<MutableList<CompanyData>>(mutableListOf())
+    val companyDataList: LiveData<MutableList<CompanyData>> = _companyDataList
+
+    private val _userDataList = MutableLiveData<MutableList<CompanyData>>(mutableListOf())
+    val userDataList: LiveData<MutableList<CompanyData>> = _userDataList
 
     fun setUserData(username: String, password: String, email: String, phoneNumber: String) {
         _userData.value = UserData(username, password, email, phoneNumber)
@@ -47,5 +63,28 @@ class UserDataViewModel : ViewModel() {
 
     fun getPhoneNumber(): String? {
         return _userData.value?.phoneNumber
+    }
+    fun addCompanyData(companyData: CompanyData) {
+        _companyDataList.value?.add(companyData)
+        _companyDataList.notifyObserver()
+    }
+
+    fun removeCompanyData(companyData: CompanyData) {
+        _companyDataList.value?.remove(companyData)
+        _companyDataList.notifyObserver()
+    }
+
+    fun addUserCompanyData(companyData: CompanyData) {
+        _userDataList.value?.add(companyData)
+        _userDataList.notifyObserver()
+    }
+
+    fun removeUserCompanyData(companyData: CompanyData) {
+        _userDataList.value?.remove(companyData)
+        _userDataList.notifyObserver()
+    }
+
+    private fun <T> MutableLiveData<T>.notifyObserver() {
+        this.value = this.value
     }
 }
