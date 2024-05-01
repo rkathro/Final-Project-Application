@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentSettingsBinding
 
@@ -160,7 +161,7 @@ class SettingsFragment : Fragment() {
         val dialogView = layoutInflater.inflate(R.layout.change_facial_rec_dialog, null)
         val editTextPassword = dialogView.findViewById<EditText>(R.id.editTextPassword)
         val btnSave = dialogView.findViewById<Button>(R.id.btnSave)
-
+        val navController = requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
         val alertDialogBuilder = AlertDialog.Builder(requireContext())
         alertDialogBuilder.setView(dialogView)
         val alertDialog = alertDialogBuilder.create()
@@ -172,7 +173,7 @@ class SettingsFragment : Fragment() {
             //if true print retraining facial rec and call however we decide to retrain
             if (validatePasswordForFacialRecognition(password)) {
                 Toast.makeText(requireContext(), "Retraining facial recognition...", Toast.LENGTH_SHORT).show()
-                //call retraining function here
+                navController.navigate(R.id.navigation_training)
             } else {
                 Toast.makeText(requireContext(), "Incorrect password", Toast.LENGTH_SHORT).show()
             }
