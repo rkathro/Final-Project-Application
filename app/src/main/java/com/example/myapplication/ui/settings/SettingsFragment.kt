@@ -9,14 +9,17 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentSettingsBinding
+import com.example.myapplication.ui.setup.UserDataViewModel
 
 class SettingsFragment : Fragment() {
-
+    private val userDataViewModel: UserDataViewModel by activityViewModels()
     private var _binding: FragmentSettingsBinding? = null
+    val navController = requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -183,35 +186,48 @@ class SettingsFragment : Fragment() {
 
     private fun validateUsernameChange(email: String, password: String, newUsername: String): Boolean {
         //change one currentPassword to the password stored in UserDataViewModel
-        if(password == password && email == email && newUsername.isNotEmpty())
+        val storedPassword = userDataViewModel.getPassword()
+        val storedEmail = userDataViewModel.getEmail()
+        if(storedPassword == password && storedEmail == email && newUsername.isNotEmpty()) {
+            userDataViewModel.setUsername(newUsername)
             return true
-        else
+        }else
             return false
     }
     private fun validatePasswords(currentPassword: String, newPassword: String, confirmNewPassword: String): Boolean {
         //change one currentPassword to the password stored in UserDataViewModel
-        if(currentPassword == currentPassword && newPassword == confirmNewPassword && isPasswordValid(newPassword))
+        val storedPassword = userDataViewModel.getPassword()
+        if(storedPassword == currentPassword && newPassword == confirmNewPassword && isPasswordValid(newPassword)) {
+            userDataViewModel.setPasswrod(newPassword)
             return true
-        else
+        }else
             return false
     }
     private fun validateEmailChange(currentEmail: String, password: String, newEmail: String): Boolean {
         //change one password and current email to the password and email stored in UserDataViewModel
-        if(password == password && currentEmail == currentEmail && isEmailValid(newEmail))
+        val storedPassword = userDataViewModel.getPassword()
+        val storedEmail = userDataViewModel.getEmail()
+        if(storedPassword == password && storedEmail == currentEmail && isEmailValid(newEmail)) {
+            userDataViewModel.setEmail(newEmail)
             return true
-        else
+        }else
             return false
     }
     private fun validatePhoneNumberChange(currentPhoneNumber: String, password: String, newPhoneNumber: String): Boolean {
         //change one password and current email to the password and email stored in UserDataViewModel
-        if(password == password && currentPhoneNumber == currentPhoneNumber && isPhoneNumberValid(newPhoneNumber))
+        val storedPassword = userDataViewModel.getPassword()
+        val storedPhoneNumber = userDataViewModel.getPhoneNumber()
+        if(storedPassword == password && storedPhoneNumber == currentPhoneNumber && isPhoneNumberValid(newPhoneNumber)) {
+            userDataViewModel.setPhoneNumber(newPhoneNumber)
             return true
-        else
+        }else
             return false
     }
     private fun validatePasswordForFacialRecognition(password: String): Boolean {
         //replace password with password from db
-        return password == password
+        val storedPassword = userDataViewModel.getPassword()
+        return storedPassword == password
+
     }
     fun isPasswordValid(password: String): Boolean {
         val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$".toRegex()
