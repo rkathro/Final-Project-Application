@@ -41,7 +41,7 @@ class FacialTrainingFragment() : Fragment() {
     private lateinit var binding: ActivityTrainingBinding
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
     private var capturedImage: Bitmap? = null
-    val navController = requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +79,7 @@ class FacialTrainingFragment() : Fragment() {
         }, ContextCompat.getMainExecutor(requireContext()))
         binding.btnCapture.setOnClickListener {
             captureImage()
+            val navController = requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
             navController.navigate(R.id.navigation_account)
         }
     }
