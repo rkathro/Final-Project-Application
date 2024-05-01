@@ -1,7 +1,10 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("io.realm.kotlin") version "1.15.0"
+    id("com.android.application")
+    kotlin("android")
+    kotlin("kapt")
+    id("io.realm.kotlin")
 }
 
 android {
