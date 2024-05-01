@@ -19,7 +19,6 @@ import com.example.myapplication.ui.setup.UserDataViewModel
 class SettingsFragment : Fragment() {
     private val userDataViewModel: UserDataViewModel by activityViewModels()
     private var _binding: FragmentSettingsBinding? = null
-    val navController = requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
     private val binding get() = _binding!!
 
     override fun onCreateView(
