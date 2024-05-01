@@ -45,7 +45,6 @@ class AccountFragment : Fragment() {
         val root: View = binding.root
         recyclerView = root.findViewById(R.id.accountRecycler)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        Toast.makeText(requireContext(), userDataViewModel.getUsername(), Toast.LENGTH_SHORT).show()
         // Sample data for testing
         companyListPasswords = listOf(
             CompanyData(R.drawable.charlotte_49ers_1, "Charlotte", "fortyniners"),
@@ -91,8 +90,8 @@ class AccountFragment : Fragment() {
                     val companyPass = i.companyPassword
                     if(companyPass == password){
                         if(dataList.contains(i)){
-                            Toast.makeText(requireContext(), "Account already exists", Toast.LENGTH_SHORT)
-                                .show()
+                            //Toast.makeText(requireContext(), "Account already exists", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), userDataViewModel.getUsername(), Toast.LENGTH_SHORT).show()
                         }
                         else {
                             dataList.add(i)

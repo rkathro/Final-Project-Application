@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 data class UserData(val username: String?, val password: String?, val email: String?, val phoneNumber: String?)
+data class CompanyData(val logoDrawableId: Int, val companyName: String, val companyPassword: String)
 class UserDataViewModel : ViewModel() {
 
     private val _userData = MutableLiveData<UserData>()
