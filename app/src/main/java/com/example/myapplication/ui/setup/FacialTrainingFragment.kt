@@ -76,8 +76,6 @@ class FacialTrainingFragment() : Fragment() {
                 Toast.makeText(requireContext(), "Error starting camera preview", Toast.LENGTH_SHORT).show()
             }
         }, ContextCompat.getMainExecutor(requireContext()))
-
-
         binding.btnCapture.setOnClickListener {
             captureImage()
         }
