@@ -85,7 +85,6 @@ class AccountFragment : Fragment() {
                         }
                         else {
                             dataList.add(i)
-                            userDataViewModel.addUserCompanyData(i)
                         }
                     }
                 }
