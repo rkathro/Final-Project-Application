@@ -196,14 +196,14 @@ class SettingsFragment : Fragment() {
     }
     private fun validateEmailChange(currentEmail: String, password: String, newEmail: String): Boolean {
         //change one password and current email to the password and email stored in UserDataViewModel
-        if(password == password && currentEmail == currentEmail && newEmail.isNotEmpty())
+        if(password == password && currentEmail == currentEmail && isEmailValid(newEmail))
             return true
         else
             return false
     }
     private fun validatePhoneNumberChange(currentPhoneNumber: String, password: String, newPhoneNumber: String): Boolean {
         //change one password and current email to the password and email stored in UserDataViewModel
-        if(password == password && currentPhoneNumber == currentPhoneNumber && newPhoneNumber.isNotEmpty())
+        if(password == password && currentPhoneNumber == currentPhoneNumber && isPhoneNumberValid(newPhoneNumber))
             return true
         else
             return false
@@ -211,5 +211,21 @@ class SettingsFragment : Fragment() {
     private fun validatePasswordForFacialRecognition(password: String): Boolean {
         //replace password with password from db
         return password == password
+    }
+    private fun isPhoneNumberValid(phoneNumber: String): Boolean {
+        /*var phonePattern = "^[0-9]{10}\$"
+        if(phoneNumber.matches(Regex(phonePattern))){
+            return true
+        }
+        else{
+            phonePattern = "^(\\d{3}-)?\\d{3}-\\d{4}\$"
+            return phoneNumber.matches(Regex(phonePattern))
+        }*/
+        val phonePattern = "^[0-9]{10}\$"
+        return phoneNumber.matches(Regex(phonePattern))
+    }
+    private fun isEmailValid(email: String): Boolean {
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
+        return email.matches(Regex(emailPattern))
     }
 }

@@ -37,18 +37,17 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
 
         /*Resets the app to think every login is the users First login. Use for Demonstration purposes
-        resetSharedPref()
+        Use wisely its a pain in the ass after I implemented all the checks
+        resetSharedPref()*/
         if (isFirstLogin()) {
             navigateToAccountSetup()
-        }*/
+        }
     }
 
     private fun isFirstLogin(): Boolean {
         return sharedPreferences.getBoolean("first_login", true)
     }
     private fun navigateToAccountSetup() {
-        // Inflate AccountSetupFragment
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
         navController.navigate(R.id.navigation_account_setup)
     }
     private fun resetSharedPref() {
