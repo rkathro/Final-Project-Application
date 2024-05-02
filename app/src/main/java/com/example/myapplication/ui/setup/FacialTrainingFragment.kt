@@ -129,6 +129,20 @@ class FacialTrainingFragment() : Fragment() {
         // Make the ImageView visible
         binding.photoView.visibility = View.VISIBLE
     }
+    override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+        // Update the UI on the main thread
+        Handler(Looper.getMainLooper()).post {
+            // Hide the camera preview
+            binding.previewView.visibility = View.GONE
+
+            // Get the Uri of the saved file
+            val savedUri = outputFileResults.savedUri ?: Uri.fromFile(photoFile)
+
+            // Show the photo in an ImageView
+            showCapturedImage(savedUri)
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         // Shut down the cameraExecutor
