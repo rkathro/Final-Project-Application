@@ -80,6 +80,7 @@ class AccountSetupFragment() : Fragment() {
             }else{
                 Toast.makeText(requireContext(), "Please enter a username", Toast.LENGTH_SHORT).show()
             }*/
+            userDataViewModel.setUserData(username, password, email, phoneNumber)
             navController.navigate(R.id.navigation_training)
         }
 
