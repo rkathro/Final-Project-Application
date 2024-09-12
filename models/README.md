@@ -19,3 +19,5 @@
 **Loss Calculation:** Cross-Entropy Loss
 
 **Evaluation:**  AUC - ROC (Area Under the Curve - Receiver Operating Characteristic)
+
+###### - Models by Daniel Santos
